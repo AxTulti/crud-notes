@@ -37,7 +37,7 @@ app.set('port', process.env.PORT || 3000); // Default port is 3000
 // # CORS #
 const whitelist: string[] | any = process.env.ALLOWED_ORIGINS!;
 
-function manageOriginAcces(origin: string, callback: Function):void {
+const manageOriginAcces = (origin: string, callback: Function) => {
     // if the origin is included in the whitelist call the callback
     if (whitelist.includes(origin)) return callback(null, true);
     

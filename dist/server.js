@@ -21,6 +21,7 @@ dotenv_1.default.config();
 //  # Modules #
 const express_1 = __importDefault(require("express")); // We are using express as our framework
 const morgan_1 = __importDefault(require("morgan")); // We are using morgan to log requests to the console
+const cors_1 = __importDefault(require("cors")); // We are using cors to allow cross origin requests from a list of allowed origins
 // # Database #
 const database_1 = __importDefault(require("./config/database"));
 const note_1 = __importDefault(require("./models/note"));
@@ -38,6 +39,19 @@ app.set('port', process.env.PORT || 3000); // Default port is 3000
 /*
  * * * * Middlware  * * *
  */
+// # CORS #
+const whitelist = process.env.ALLOWED_ORIGINS;
+const manageOriginAcces = (origin, callback) => {
+    // if the origin is included in the whitelist call the callback
+    if (whitelist.includes(origin))
+        return callback(null, true);
+    // otherwise, pass an error to the callback
+    callback(new Error('Not allowed by CORS'));
+};
+const corsOptions = {
+    origin: manageOriginAcces
+};
+app.use(cors_1.default(corsOptions));
 // use morgan
 app.use(morgan_1.default('dev'));
 // add json support
