@@ -8,8 +8,8 @@ dotenv.config();
 
 //  # Modules #
 import express from 'express'; // We are using express as our framework
-import path from 'path'; // We are using path to determine our app's root
 import morgan from 'morgan'; // We are using morgan to log requests to the console
+import cors from 'cors'; // We are using cors to allow cross origin requests from a list of allowed origins
 
 // # Database #
 import connection from './config/database';
@@ -33,6 +33,24 @@ app.set('port', process.env.PORT || 3000); // Default port is 3000
 /*
  * * * * Middlware  * * *
  */
+
+// # CORS #
+const whitelist: string[] | any = process.env.ALLOWED_ORIGINS!;
+
+function manageOriginAcces(origin: string, callback: Function):void {
+    // if the origin is included in the whitelist call the callback
+    if (whitelist.includes(origin)) return callback(null, true);
+    
+    // otherwise, pass an error to the callback
+    callback(new Error('Not allowed by CORS'));
+}
+
+const corsOptions: any = {
+    origin: manageOriginAcces
+};
+
+app.use(cors(corsOptions));
+
 // use morgan
 app.use(morgan('dev'));
 
