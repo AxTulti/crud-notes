@@ -1,0 +1,33 @@
+{
+  "name": "crud-notes",
+  "version": "1.0.0",
+  "description": "A CRUD API to manage notes per session, useing JWT to autorize users",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startdb": "mongod",
+    "compile": "tsc --watch",
+    "dev": "nodemon dist/server.js",
+    "start": "node dist/server.js"
+  },
+  "keywords": [
+    "CRUD",
+    "Notes",
+    "JWT"
+  ],
+  "author": "Axel Rodríguez",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/morgan": "^1.9.3",
+    "nodemon": "^2.0.12"
+  }
+}
